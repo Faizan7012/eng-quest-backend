@@ -21,10 +21,9 @@ BookRouter.get("/", async (req, res) => {
 
 
 BookRouter.post("/", isCreator , async (req, res) => {
+  const {book} = req.body;
     try {
-      const book = await booksModel.create({
-        ...req.body,
-      });
+      const book = await booksModel.create(book);
       res.json({status:true,message : 'Book added succesfully'});
     } catch (error) {
       res.status(500).json({

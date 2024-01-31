@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const isCreator = (req,res,next)=>{
     try {
-        const token = req.headers["token"];
+        const token = req.body.token
         const check = jwt.decode(token)
         if(check?.role == 'CREATOR'){
             next();
