@@ -1,6 +1,7 @@
 const express = require("express");
 const { isCreator } = require("../middleware/creator");
 const booksModel = require("../models/book.model");
+const { isCreatordel } = require("../middleware/creatordel");
 const BookRouter = express.Router();
 
 BookRouter.get("/", async (req, res) => {
@@ -34,7 +35,7 @@ BookRouter.post("/", isCreator , async (req, res) => {
 
 
 
-BookRouter.delete("/delete/:id", isCreator, async (req, res) => {
+BookRouter.delete("/delete/:id", isCreatordel, async (req, res) => {
     try {
       await booksModel.findByIdAndDelete(req.params.id);
       res.json({status : true , message: 'Book deleted successfully' });
