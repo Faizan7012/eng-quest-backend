@@ -1,9 +1,13 @@
 const express = require("express");
+const cors = require('cors')
 const { isCreator } = require("../middleware/creator");
 const booksModel = require("../models/book.model");
 const { isCreatordel } = require("../middleware/creatordel");
 const BookRouter = express.Router();
-
+BookRouter.options('/', corr());
+BookRouter.use(cors({
+  origin: 'http://localhost:3000',
+}));
 BookRouter.get("/", async (req, res) => {
     try {
 
