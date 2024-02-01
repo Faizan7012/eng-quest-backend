@@ -10,7 +10,12 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-app.use(cors());
+const corsOrigin ={
+    origin:'https://frontend-eight-phi-39.vercel.app', //or whatever port your frontend is using
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
 
 
 
