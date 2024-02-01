@@ -24,7 +24,6 @@ BookRouter.get("/", async (req, res) => {
 BookRouter.post("/", isCreator , async (req, res) => {
   const {book , user} = req.body;
     try {
-package-lock.json
       const newbook = await booksModel.create({...book , postedBy : user.name , creatorEmail : user.email});
       res.json({status:true,message : 'Book added succesfully'});
     } catch (error) {
@@ -39,7 +38,7 @@ package-lock.json
 BookRouter.delete("/delete/:id", isCreatordel, async (req, res) => {
     try {
       let finded = await booksModel.find({_id : req.params.id});
-      if(finded[0].creatorEmail === req.params.creatorEmail){
+      if(finded[0].creatorEmail === req.body.creatorEmail){
         await booksModel.findByIdAndDelete(req.params.id);
         res.json({status : true , message: 'Book deleted successfully' });
       }
