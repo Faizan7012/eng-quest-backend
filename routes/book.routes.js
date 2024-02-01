@@ -4,7 +4,7 @@ const { isCreator } = require("../middleware/creator");
 const booksModel = require("../models/book.model");
 const { isCreatordel } = require("../middleware/creatordel");
 const BookRouter = express.Router();
-BookRouter.options('/', corr());
+BookRouter.options('/', cors());
 BookRouter.use(cors({
   origin: 'http://localhost:3000',
 }));
