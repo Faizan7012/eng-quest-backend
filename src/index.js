@@ -5,7 +5,6 @@ const cors = require('cors');
 const { mongodbConnection } = require("../config/db");
 const authRoutes = require("../routes/auth.routes");
 const booksRoutes = require("../routes/book.routes");
-const { createProxyMiddleware } = require('http-proxy-middleware');
 const morgan = require('morgan');
 
 const app = express();
@@ -13,15 +12,7 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(cors());
-
-app.use(
-    '/',  // Adjust the path based on your backend API endpoint
-    createProxyMiddleware({
-      target: 'http://localhost:3002',
-      changeOrigin: true,
-    })
-  );
-  app.use(morgan('combined'))
+app.use(morgan('combined'))
 
 
 
