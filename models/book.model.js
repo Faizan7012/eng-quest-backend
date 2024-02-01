@@ -17,6 +17,10 @@ const bookSchema = Schema({
         type: String,
         required: true,
     },
+    creatorEmail: {
+        type: String,
+        required: true,
+    },
     createdAt: { type: Date, default: Date.now }
 });
 

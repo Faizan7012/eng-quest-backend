@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require('express');
+const logger = require('morgan');
 const cors = require('cors');
 const { mongodbConnection } = require("../config/db");
 const authRoutes = require("../routes/auth.routes");
@@ -11,12 +12,17 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(cors());
+app.use(logger('dev'))
 
 
 
 //routes
 app.use("/auth", authRoutes);
 app.use("/books", booksRoutes);
+
+app.get('/', (req, res)=>{
+    res.send('welcome to the server')
+})
 
 
 

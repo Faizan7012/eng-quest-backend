@@ -37,8 +37,19 @@ BookRouter.post("/", isCreator , async (req, res) => {
 
 BookRouter.delete("/delete/:id", isCreatordel, async (req, res) => {
     try {
-      await booksModel.findByIdAndDelete(req.params.id);
-      res.json({status : true , message: 'Book deleted successfully' });
+      let finded = await booksModel.find({_id : req.params.id});
+      if(finded[0].creatorEmail === req.params.creatorEmail){
+        await booksModel.findByIdAndDelete(req.params.id);
+        res.json({status : true , message: 'Book deleted successfully' });
+      }
+
+      else{
+        res.status(500).json({
+          status:false,message : 'You can delete only your book'
+  
+        });
+      }
+    
     } catch (error) {
       res.status(500).json({
         status:false,message : error.message
