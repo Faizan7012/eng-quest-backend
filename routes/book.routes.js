@@ -36,18 +36,9 @@ BookRouter.post("/", isCreator , async (req, res) => {
 
 BookRouter.delete("/delete/:id", async (req, res) => {
     try {
-      let finded = await booksModel.find({_id : req.params.id});
-      if(finded[0].creatorEmail === req.body.creatorEmail){
+   
         await booksModel.findByIdAndDelete(req.params.id);
         res.json({status : true , message: 'Book deleted successfully' });
-      }
-
-      else{
-        res.status(500).json({
-          status:false,message : 'You can delete only your book'
-  
-        });
-      }
     
     } catch (error) {
       res.status(500).json({
@@ -82,23 +73,13 @@ BookRouter.get('/get/:id', async (req, res) => {
   BookRouter.put("/edit/:id", async (req, res) => {
     const {title ,publishedYear , author } = req.body.book;
     try {
-      let finded = await booksModel.find({_id : req.params.id});
-      if(finded[0].creatorEmail === req.body.creatorEmail){
         const result = await booksModel.updateOne({ _id: req.params.id }, { $set: {title , publishedYear , author}  });
-    
+  
         if (result.modifiedCount === 1) {
           res.send({ status :true , message: 'Document updated successfully' });
         } else {
           res.status(404).send({ status :false, message: 'Document not found' });
         }
-      }
-
-      else{
-        res.status(401).json({
-          status:false,message : 'You can edit only your book'
-  
-        });
-      }
     
     } catch (error) {
       res.status(500).json({
