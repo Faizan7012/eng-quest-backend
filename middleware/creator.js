@@ -8,7 +8,7 @@ const isCreator = (req,res,next)=>{
             next();
         }
         else{
-            return res.status(401).json({
+            return res.json({
                 status:false,
                 message:"not authorized"
             })
@@ -17,7 +17,7 @@ const isCreator = (req,res,next)=>{
     } catch (error) {
         return res.status(401).json({
             status:false,
-            message:error.message
+            message:'token expired login agian !'
         })
     }
 }
