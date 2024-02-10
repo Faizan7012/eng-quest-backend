@@ -61,11 +61,12 @@ BookRouter.delete("/delete/:id", isCreatordel, async (req, res) => {
 
 
   // 4. Get all books created in the last 10 minutes and before the last 10 minutes
-BookRouter.get('/:id', async (req, res) => {
+BookRouter.get('/get/:id', async (req, res) => {
     const tenMinutes = new Date(Date.now() - 10 * 60 * 1000);
-    let sign = req.params.id == 0? '$gte' : '$lt';
     try {
-      const Books = await booksModel.find({ createdAt: { sign: tenMinutes } });
+      const Books = req.params.id == 0 ?
+      await booksModel.find({ createdAt: { $gte : tenMinutes } }):
+      await booksModel.find({ createdAt: { $lt : tenMinutes } })
       res.json({
         status:true,
         data : Books
