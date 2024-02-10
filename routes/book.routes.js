@@ -1,7 +1,6 @@
 const express = require("express");
 const { isCreator } = require("../middleware/creator");
 const booksModel = require("../models/book.model");
-const { isCreatordel } = require("../middleware/creatordel");
 const BookRouter = express.Router();
 
 BookRouter.get("/", async (req, res) => {
@@ -35,7 +34,7 @@ BookRouter.post("/", isCreator , async (req, res) => {
 
 
 
-BookRouter.delete("/delete/:id", isCreatordel, async (req, res) => {
+BookRouter.delete("/delete/:id", async (req, res) => {
     try {
       let finded = await booksModel.find({_id : req.params.id});
       if(finded[0].creatorEmail === req.body.creatorEmail){
@@ -80,7 +79,7 @@ BookRouter.get('/get/:id', async (req, res) => {
 
 
 
-  BookRouter.put("/edit/:id", isCreator, async (req, res) => {
+  BookRouter.put("/edit/:id", async (req, res) => {
     const {title ,publishedYear , author } = req.body.book;
     try {
       let finded = await booksModel.find({_id : req.params.id});
